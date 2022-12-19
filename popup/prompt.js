@@ -30,7 +30,7 @@ const runCompletion = async (prompt, apiKey) => {
             model: 'text-davinci-003',
             prompt: prompt,
             temperature: 0,
-            max_tokens: 100,
+            max_tokens: 256,
         }),
     });
     console.log(response);
@@ -54,7 +54,7 @@ const getAPIKey = async () => {
 };
 
 submitButton.onclick = async () => {
-    await saveAPIKey('<API_KEY>');
+    await saveAPIKey('<API-KEY>');
 
     const apiKey = await getAPIKey();
     console.log(apiKey);
@@ -66,11 +66,18 @@ submitButton.onclick = async () => {
     const tabs = await browser.tabs.query({active: true, currentWindow: true});
     const tabResponse = await browser.tabs.sendMessage(tabs[0].id, {req: 'get-source'});
     const tabContent = tabResponse.content;
-    // const tabContent = 'RLHF stands for "Real Life Human Friends".';
 
-    // Run GPT completion request
-    const completePrompt = createCompletePrompot(tabContent, prompt);
-    // response.innerHTML = completePrompt;
+    // Truncate content to 2750 words
+    let truncatedContent = '';
+    for (const sentence of tabContent.split('.')) {
+        truncatedContent += sentence + '.';
+        if (truncatedContent.split(' ').length > 2600) {
+            break;
+        }
+    }
+
+    // Build prompt and run GPT completion request
+    const completePrompt = createCompletePrompot(truncatedContent, prompt);
     const completion = await runCompletion(completePrompt, apiKey, tabContent);
     response.innerHTML = completion;
 };

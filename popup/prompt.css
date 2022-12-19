@@ -2,13 +2,18 @@ body {
     width: 600px;
     height: 400px;
 
-    padding: 0;
-    border-radius: 0;
+    margin: 0;
+    padding: 8px;
+
+    border: none;
 }
 
 .container {
     height: 100%;
     width: 100%;
+
+    font-family: sans-serif;
+    color: rgb(40, 40, 40);
 
     display: flex;
     flex-direction: column;
@@ -16,6 +21,13 @@ body {
 
 .chatbox {
     height: 100%;
+
+    overflow: auto;
+    margin-bottom: 8px;
+}
+
+.chatbox p {
+    margin: 0;
 }
 
 .input-bar {
@@ -27,4 +39,24 @@ body {
 
 .input-bar input {
     width: 100%;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid rgb(210, 210, 210);
+
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.input-bar input:focus {
+    outline: none;
+}
+
+.input-bar button {
+    background-color: rgb(210, 210, 210);
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    padding: 8px;
 }
