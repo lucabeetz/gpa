@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "GPA",
+    "version": "0.1",
+    "description": "GPT for your browser",
+
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "storage"
+    ],
+
+    "browser_action": {
+        "default_icon": "icons/beasts-48.png",
+        "default_title": "GPA",
+        "default_popup": "popup/prompt.html"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["*://*/*"],
+            "js": ["content.js"]
+        }
+    ]
+}
